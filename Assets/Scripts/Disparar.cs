@@ -33,6 +33,12 @@ public class Disparar : MonoBehaviour
         ActualizarTextoMunicion();
     }
 
+    void OnEnable()
+    {
+        recargando = false;
+        ActualizarTextoMunicion();
+    }
+
     void Update()
     {
         if (recargando) return;
@@ -85,7 +91,7 @@ public class Disparar : MonoBehaviour
         municionActual--;
         ActualizarTextoMunicion();
 
-        if (sonidoDisparo != null) fuente.PlayOneShot(sonidoDisparo);
+        if (sonidoDisparo != null && fuente != null) fuente.PlayOneShot(sonidoDisparo);
         
         bool hayMuzzle = false;
 
@@ -116,7 +122,8 @@ public class Disparar : MonoBehaviour
 
     void ActualizarTextoMunicion()
     {
-        if (textoMunicion != null)
+        // Solo actualizamos el texto si el arma está activa en las manos del jugador
+        if (gameObject.activeInHierarchy && textoMunicion != null)
         {
             textoMunicion.text = municionActual + " / " + municionReserva;
         }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Vida : MonoBehaviour
 {
-    public int vidaMax = 3;
+    public int vidaMax = 5;
     public bool esJugador = false;
     
     [Header("UI Jugador")]

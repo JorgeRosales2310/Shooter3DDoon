@@ -10,11 +10,14 @@ public class RecogidaMunicion : MonoBehaviour
         // Asegúrate de que tu jugador tenga el Tag "Player"
         if (other.CompareTag("Player"))
         {
-            // Busca el script Disparar en el jugador o en sus hijos (como la cámara)
-            Disparar disparar = other.GetComponentInChildren<Disparar>();
-            if (disparar != null)
+            // Busca TODOS los scripts Disparar en el jugador y sus hijos (incluso las armas inactivas)
+            Disparar[] armas = other.GetComponentsInChildren<Disparar>(true);
+            if (armas.Length > 0)
             {
-                disparar.AnadirMunicion(cantidad);
+                foreach (Disparar disparar in armas)
+                {
+                    disparar.AnadirMunicion(cantidad);
+                }
                 
                 if (sonidoRecoger != null)
                 {

@@ -98,8 +98,11 @@ public class GameManager : MonoBehaviour
             PrimeraPersona movimiento = jugador.GetComponent<PrimeraPersona>();
             if (movimiento != null) movimiento.enabled = false;
 
-            Disparar disparo = jugador.GetComponent<Disparar>();
-            if (disparo != null) disparo.enabled = false;
+            Disparar[] disparos = jugador.GetComponentsInChildren<Disparar>(true);
+            foreach (Disparar disparo in disparos)
+            {
+                if (disparo != null) disparo.enabled = false;
+            }
         }
     }
 

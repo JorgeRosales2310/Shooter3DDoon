@@ -8,6 +8,10 @@ public class PrimeraPersona : MonoBehaviour
     public float gravedad = -9.81f;
     public Transform camara;
 
+    [Header("Armas")]
+    public GameObject[] armas;
+    private int armaActual = 0;
+
     private CharacterController cc;
     private float pitch = 0f;
     private Vector3 velY;
@@ -31,6 +35,8 @@ public class PrimeraPersona : MonoBehaviour
             posLocal.z = 0;
             camara.localPosition = posLocal;
         }
+
+        CambiarArma(0);
     }
 
     void Update()
@@ -39,7 +45,7 @@ public class PrimeraPersona : MonoBehaviour
         float mx = Input.GetAxis("Mouse X") * sensibilidad;
         float my = Input.GetAxis("Mouse Y") * sensibilidad;
         
-        // Girar el cuerpo alrededor del eje Y del mundo (para evitar ejes extraños)
+        // Girar el cuerpo alrededor del eje Y del mundo 
         transform.Rotate(0, mx, 0, Space.World); 
         
         pitch = Mathf.Clamp(pitch - my, -80f, 80f); // mirar arriba y abajo
@@ -59,5 +65,31 @@ public class PrimeraPersona : MonoBehaviour
         velY.y += gravedad * Time.deltaTime;
 
         cc.Move((mov + velY) * Time.deltaTime);
+
+        // Cambiar de arma
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            CambiarArma(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            CambiarArma(1);
+        }
+    }
+
+    void CambiarArma(int indice)
+    {
+        if (armas == null || armas.Length == 0) return;
+        if (indice < 0 || indice >= armas.Length) return;
+
+        armaActual = indice;
+
+        for (int i = 0; i < armas.Length; i++)
+        {
+            if (armas[i] != null)
+            {
+                armas[i].SetActive(i == armaActual);
+            }
+        }
     }
 }

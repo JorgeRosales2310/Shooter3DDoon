@@ -104,7 +104,7 @@ public class EnemigoIA : MonoBehaviour
             Invoke("ApagarMuzzle", 0.15f);
         }
 
-        // Origen del disparo: posición del enemigo + un poco hacia arriba (altura de pecho)
+        // Origen del disparo: posición del enemigo, un poco hacia arriba 
         Vector3 origen = transform.position + Vector3.up * 1.2f;
         // Dirección hacia el pecho del jugador
         Vector3 destino = jugador.position + Vector3.up * 0.8f;
